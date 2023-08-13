@@ -1,3 +1,5 @@
+
+const schemaString = ` 
 # ------------------- queries -------------------
 
 type Query {
@@ -96,4 +98,5 @@ type CartItem {
 #   productId: ID!
 #   quantity: Int!
 # }
-
+`
+export default schemaString;
