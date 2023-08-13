@@ -84,7 +84,7 @@ const resolvers = {
       const userCart = carts.find(cart => _userId == cart.userId);
       const index = userCart.items.findIndex(item => _productId == item.productId);
       const isCartPresent = index != -1;
-      if(isCartPresent) carts.splice(index, 1);
+      if(isCartPresent) userCart.items.splice(index, 1);
       return isCartPresent;
     },
   },

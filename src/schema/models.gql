@@ -17,7 +17,7 @@ type Mutation {
 
   addCartItem(userId: ID!, cartItem: CartItemInputData!): CartItem
   updateCartItem(userId: ID!, cartItem: CartItemInputData!): CartItem
-  deleteCartItem(userId: ID!, productId: ID!): CartItem
+  deleteCartItem(userId: ID!, productId: ID!): Boolean
 }
 
 
