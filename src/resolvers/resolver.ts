@@ -1,9 +1,16 @@
 import {users, products, carts} from "../data/data";
 import { v4 as uuidv4 } from 'uuid';
+import * as fs from 'fs';
+import * as path from 'path';
 
 
 const resolvers = {
   Query: {
+    readFile: () => {
+      // const schemaFile = path.join(__dirname, '..', 'resolvers', 'data.txt');
+      const schemaString = fs.readFileSync("src/resolvers/data.txt", 'utf-8');
+      return schemaString;
+    },
     getAllProduct: () => products,
     getCart: (_, args) => carts.find(cart => args.userId == cart.userId),
     // getOrderHistory: () => null,
