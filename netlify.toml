@@ -1,4 +1,4 @@
 [build]
   functions = "src/functions"
 [functions]
-  included_files = ["src/schema/models.gql", "src/resolvers/data.txt"]
+  included_files = ["src/schema/models.gql"]

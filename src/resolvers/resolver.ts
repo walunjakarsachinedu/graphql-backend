@@ -1,19 +1,13 @@
-import {users, products, carts} from "../data/data";
+import {users, products, carts, orderHistory} from "../data/data";
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
-import * as path from 'path';
 
 
 const resolvers = {
   Query: {
-    readFile: () => {
-      // const schemaFile = path.join(__dirname, '..', 'resolvers', 'data.txt');
-      const schemaString = fs.readFileSync("src/resolvers/data.txt", 'utf-8');
-      return schemaString;
-    },
     getAllProduct: () => products,
-    getCart: (_, args) => carts.find(cart => args.userId == cart.userId),
-    // getOrderHistory: () => null,
+    getCart: (_, {userId}) => carts.find(cart => userId == cart.userId),
+    getOrderHistory: (_, {userId}) => orderHistory.find(history => userId == history.userId),
   },
   Mutation: {
     createUser: (_, {user: _user}) => {
@@ -87,8 +81,21 @@ const resolvers = {
       if(isCartPresent) userCart.items.splice(index, 1);
       return isCartPresent;
     },
+    addOrderHistory: (_, {userId: _userId, history: _history}) => {
+      const userOrderHistory = orderHistory.find(history => _userId == history.userId);
+      const history = {
+        date: _history.date,
+        productId: _history.productId,
+        quantity: _history.quantity
+      };
+      userOrderHistory.history.push(history);
+      return history;
+    }
   },
   CartItem: {
+    product: (item) => products.find(product => item.productId == product.id)
+  },
+  OrderHistoryItem: {
     product: (item) => products.find(product => item.productId == product.id)
   }
 };

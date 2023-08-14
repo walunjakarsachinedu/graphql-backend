@@ -58,8 +58,8 @@ const products = [
 // cart
 const carts = [
   {
-    "userId": "1",
-    "items": [
+    userId: "1",
+    items: [
       {
         "productId": "1",
         "quantity": 1
@@ -67,8 +67,8 @@ const carts = [
     ]
   },
   {
-    "userId": "2",
-    "items": [
+    userId: "2",
+    items: [
       {
         "productId": "1",
         "quantity": 2
@@ -84,8 +84,8 @@ const carts = [
     ]
   },
   {
-    "userId": "3",
-    "items": [
+    userId: "3",
+    items: [
       {
         "productId": "1",
         "quantity": 1
@@ -94,5 +94,38 @@ const carts = [
   }
 ]
 
+const orderHistory = [
+  {
+    userId: "1",
+    history: [
+      {
+        date: "2023-08-13T15:05:04.071Z",
+        productId: "1",
+        quantity: 2
+      },
+      {
+        date: "2023-08-13T15:06:47.575Z",
+        productId: "2",
+        quantity: 4
+      },
+    ]
+  },
+  {
+    userId: "2",
+    history: [
+      {
+        date: "2023-08-08T15:08:16.194Z",
+        productId: "1",
+        quantity: 10
+      },
+      {
+        date: "2023-08-03T15:08:36.970Z",
+        productId: "2",
+        quantity: 20
+      },
+    ]
+  }
+]
 
-export {users, products, carts};
+
+export {users, products, carts, orderHistory};

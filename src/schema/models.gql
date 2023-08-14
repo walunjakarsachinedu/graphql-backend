@@ -1,10 +1,9 @@
 # ------------------- queries -------------------
 
 type Query {
-  readFile: String,
   getAllProduct: [Product]
   getCart(userId: ID!): Cart
-  # getOrderHistory(userId: ID!): OrderHistory
+  getOrderHistory(userId: ID!): OrderHistory
 }
 
 type Mutation {
@@ -18,6 +17,8 @@ type Mutation {
   addCartItem(userId: ID!, cartItem: CartItemInputData!): CartItem
   updateCartItem(userId: ID!, cartItem: CartItemInputData!): CartItem
   deleteCartItem(userId: ID!, productId: ID!): Boolean
+
+  addOrderHistory(userId: ID!, history: OrderHistoryItemInputData!): OrderHistoryItem
 }
 
 
@@ -53,6 +54,11 @@ input CartItemInputData {
   quantity: Int! 
 }
 
+input OrderHistoryItemInputData {
+  date: String!
+  productId: ID!
+  quantity: Int!
+}
 
 
 # ------------------- models -------------------
@@ -86,14 +92,15 @@ type CartItem {
   quantity: Int!
 }
 
-# OrderHistory {
-#   userId: ID!
-#   history: [OrderHistoryItem!]!
-# }
+type OrderHistory {
+  userId: ID!
+  history: [OrderHistoryItem!]!
+}
 
-# OrderHistoryItem {
-#   date: String!
-#   productId: ID!
-#   quantity: Int!
-# }
+type OrderHistoryItem {
+  date: String!
+  productId: ID!
+  product: Product
+  quantity: Int!
+}
 
