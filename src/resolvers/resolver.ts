@@ -1,6 +1,8 @@
 import {users, products, carts, orderHistory} from "../data/data";
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
+import * as jwt from 'jsonwebtoken';
+import { ApolloError } from "apollo-server-lambda";
 
 
 const resolvers = {
@@ -24,7 +26,14 @@ const resolvers = {
       return user;
     },
 
-    login: () => "dummy-token",
+    login: (parent, {email, password}) => {
+      const { id, role } = users.find(user => email == user.email && password == user.password); 
+      return jwt.sign(
+        { role }, // payload
+        "SECRET_KEY", // secret key
+        { algorithm: "HS256", subject: id, expiresIn: "1d" }, // optional argument
+      );
+    },
 
     addProduct: (_, {product: _product}) => {
       const id = uuidv4(); 
