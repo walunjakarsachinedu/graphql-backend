@@ -2,7 +2,6 @@ import {users, products, carts, orderHistory} from "../data/data";
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
-import { ApolloError } from "apollo-server-lambda";
 
 
 const resolvers = {
