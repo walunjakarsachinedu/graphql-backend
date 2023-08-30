@@ -3,4 +3,5 @@
   node_bundler = "esbuild"
   directory = "src/functions"
   included_files = ["src/schema/models.gql"]
-
+[dev]
+  autoLaunch = false

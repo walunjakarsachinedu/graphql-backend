@@ -18,12 +18,21 @@ const server = new ApolloServer({
 
 const api = express();
 
-server.start().then(
-  () => api.use(
-    "/.netlify/functions/graphql/expressMiddleware", 
-    json(), 
-    expressMiddleware(server),
-  )
-)
+let graphqlMiddleware = (req, res, next) => {
+  res.send("loading graphql middleware");
+};
+
+async function updateMiddleware() {
+  await server.start();
+  graphqlMiddleware = expressMiddleware(server);
+}
+
+updateMiddleware();
+
+api.use(
+  "/.netlify/functions/graphql/expressMiddleware", 
+  json(), 
+  (req, res, next) => graphqlMiddleware(req, res, next), // middleware is not directly provided because it is loaded asynchronously
+);
 
 export default serverless(api);
