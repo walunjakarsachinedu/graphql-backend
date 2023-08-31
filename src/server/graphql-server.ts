@@ -2,7 +2,7 @@ import { ApolloServer} from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import * as fs from 'fs';
 import resolvers from '../resolvers/resolver';
-import express, { json } from 'express';
+import express, { RequestHandler, json } from 'express';
 import serverless from 'serverless-http';
 import { expressjwt } from 'express-jwt';
 
@@ -18,7 +18,7 @@ const server = new ApolloServer({
 
 const api = express();
 
-let graphqlMiddleware = (req, res, next) => {
+let graphqlMiddleware : RequestHandler = (req, res, next) => {
   res.send("loading graphql middleware");
 };
 
@@ -30,9 +30,9 @@ async function updateMiddleware() {
 updateMiddleware();
 
 api.use(
-  "/.netlify/functions/graphql/expressMiddleware", 
+  "/shopping-app", 
   json(), 
   (req, res, next) => graphqlMiddleware(req, res, next), // middleware is not directly provided because it is loaded asynchronously
 );
 
-export default serverless(api);
+export default serverless(api, {basePath: "/.netlify/functions/graphql"});
