@@ -24,14 +24,30 @@ let graphqlMiddleware : RequestHandler = (req, res, next) => {
 
 async function updateMiddleware() {
   await server.start();
-  graphqlMiddleware = expressMiddleware(server);
+  graphqlMiddleware = expressMiddleware(
+    server, 
+    {
+      context: async ({req}) => {
+        return { user: req["auth"] || null };
+      }
+    }
+  );
 }
 
 updateMiddleware();
 
+
+api.use(
+  json(),
+  expressjwt({
+    secret: "SECRET_KEY",
+    algorithms: ["HS256"],
+    credentialsRequired: true
+  }),
+);
+
 api.use(
   "/shopping-app", 
-  json(), 
   (req, res, next) => graphqlMiddleware(req, res, next), // middleware is not directly provided because it is loaded asynchronously
 );
 

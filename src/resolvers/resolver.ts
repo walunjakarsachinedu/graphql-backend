@@ -30,7 +30,7 @@ const resolvers = {
       return jwt.sign(
         { role }, // payload
         "SECRET_KEY", // secret key
-        { algorithm: "HS256", subject: id, expiresIn: "1d" }, // optional argument
+        { algorithm: "HS256", subject: id, expiresIn: "10d" }, // optional argument
       );
     },
 
