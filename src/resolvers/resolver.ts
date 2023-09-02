@@ -9,6 +9,7 @@ const resolvers = {
     getAllProduct: () => products,
     getCart: (_, {userId}) => carts.find(cart => userId == cart.userId),
     getOrderHistory: (_, {userId}) => orderHistory.find(history => userId == history.userId),
+    viewer: (parent, args, {user}) => users.find(u => u.id === user.sub),
   },
   Mutation: {
     createUser: (_, {user: _user}) => {

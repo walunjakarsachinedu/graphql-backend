@@ -4,6 +4,7 @@ type Query {
   getAllProduct: [Product]
   getCart(userId: ID!): Cart
   getOrderHistory(userId: ID!): OrderHistory
+  viewer: User!
 }
 
 type Mutation {
